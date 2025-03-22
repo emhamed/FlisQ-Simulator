@@ -126,12 +126,26 @@
       width: 50%;
     }
     #demo .btn:hover { background: #1a5bb8; }
+    /* Viewer Container */
     #viewer {
       width: 100%;
       height: 400px;
       margin-top: 20px;
       border: 1px solid #ccd4db;
       border-radius: 4px;
+      position: relative; /* Ensure it stays in its container */
+      overflow: hidden;
+    }
+    #viewer p {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
     }
     #simulationOutput {
       background: #eef2f7;
@@ -171,262 +185,4 @@
       flex-direction: column;
       gap: 15px;
     }
-    #contact input[type="text"],
-    #contact input[type="email"],
-    #contact textarea {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      width: 100%;
-    }
-    #contact .btn {
-      background: #2575fc;
-      color: white;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 4px;
-      font-size: 1em;
-      cursor: pointer;
-      align-self: center;
-      width: 50%;
-    }
-    #contact .btn:hover { background: #1a5bb8; }
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 20px;
-      background: #333;
-      color: #fff;
-    }
-    /* Responsive Navigation */
-    @media (max-width: 768px) {
-      nav ul { flex-direction: column; }
-      header h1 { font-size: 2.5em; }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Navigation -->
-  <nav>
-    <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#features">Features</a></li>
-      <li><a href="#demo">Demo</a></li>
-      <li><a href="#pricing">Pricing</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-
-  <!-- Hero Section -->
-  <header id="home">
-    <h1>FisQ Drug Discovery Simulator</h1>
-    <p>Quantum-Powered AI for Next-Generation Drug Discovery</p>
-    <a class="cta" href="#demo">See the Demo</a>
-  </header>
-
-  <!-- About Section -->
-  <section id="about">
-    <h2>Project Description</h2>
-    <p>
-      FisQ is an innovative platform that combines quantum computing and artificial intelligence to revolutionize molecular simulations and drug discovery.
-    </p>
-    <ul>
-      <li><strong>Core Idea:</strong> Harness the power of quantum computing (via IBM’s Quantum iCloud service) to simulate the wave-like behavior of electrons in complex molecules and integrate AI algorithms for enhanced predictive analysis.</li>
-      <li><strong>Technological Approach:</strong> Solve the Schrödinger equation using quantum algorithms, apply machine learning for data analysis, and offer a user-friendly interface for professionals and students alike.</li>
-      <li><strong>Target Audience:</strong> University researchers and pharmaceutical companies looking for advanced simulation tools that accelerate drug discovery while reducing R&D costs.</li>
-      <li><strong>Business Model:</strong> Subscription-based access with tiered pricing for academic institutions and industry professionals.</li>
-    </ul>
-  </section>
-
-  <!-- Features Section -->
-  <section id="features">
-    <h2>Features & Technology</h2>
-    <div class="feature-list">
-      <div class="feature">
-        <h3>Interactive 3D Molecular Viewer</h3>
-        <p>Render molecular structures in 3D using cutting-edge libraries like 3Dmol.js. Rotate, zoom, and visualize complex molecules dynamically.</p>
-      </div>
-      <div class="feature">
-        <h3>AI-Powered Insights</h3>
-        <p>Receive automated, context-aware analyses of molecular structures to predict binding affinities and off-target interactions.</p>
-      </div>
-      <div class="feature">
-        <h3>Quantum Simulation</h3>
-        <p>Leverage quantum algorithms to accurately model electron behavior and molecular interactions at the atomic level.</p>
-      </div>
-      <div class="feature">
-        <h3>User-Friendly Interface</h3>
-        <p>Designed for both experts and novices, with tooltips, documentation, and interactive demos that simplify complex simulations.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Demo Section -->
-  <section id="demo">
-    <h2>Interactive Demo</h2>
-    <form id="simulationForm">
-      <!-- Molecular Structure Input -->
-      <div>
-        <label for="molecularStructure">Molecular Structure (SMILES or Description):</label>
-        <textarea id="molecularStructure" rows="3" placeholder="Enter molecular structure here...">C1=CC=CC=C1</textarea>
-      </div>
-      <!-- Biological Target Input -->
-      <div>
-        <label for="biologicalTarget">Biological Target (Protein Name/ID):</label>
-        <input type="text" id="biologicalTarget" placeholder="Enter target protein..." value="EGFR kinase" />
-      </div>
-      <!-- Simulation Parameters -->
-      <div>
-        <label for="temperature">Temperature (°C):</label>
-        <input type="number" id="temperature" placeholder="Enter temperature..." value="37" />
-      </div>
-      <div>
-        <label for="pH">pH Level:</label>
-        <input type="number" id="pH" step="0.1" placeholder="Enter pH level..." value="7.4" />
-      </div>
-      <div>
-        <label for="solvent">Solvent Type:</label>
-        <select id="solvent">
-          <option value="water" selected>Water</option>
-          <option value="ethanol">Ethanol</option>
-          <option value="DMSO">DMSO</option>
-        </select>
-      </div>
-      <!-- Quantum Mechanical Parameter -->
-      <div>
-        <label for="energyLevel">Quantum Energy Level (arbitrary units): <span id="energyDisplay">50</span></label>
-        <input type="range" id="energyLevel" min="0" max="100" value="50" oninput="document.getElementById('energyDisplay').textContent = this.value" />
-      </div>
-      <!-- Submit Button -->
-      <button type="button" class="btn" onclick="simulateDrug()">Simulate</button>
-    </form>
-
-    <!-- 3D Molecular Viewer -->
-    <div id="viewer">
-      <!-- If a proper 3D model cannot be generated from SMILES, a message is shown -->
-      <p style="text-align:center; padding-top: 180px;">3D model preview will appear here.</p>
-    </div>
-
-    <!-- Simulation Output -->
-    <div class="output" id="simulationOutput">
-      <h2>Simulation Results</h2>
-      <div id="aiAnalysis">
-        <!-- AI generated analysis and energy results will appear here -->
-      </div>
-    </div>
-  </section>
-
-  <!-- Pricing Section -->
-  <section id="pricing">
-    <h2>Pricing & Subscription</h2>
-    <div class="pricing-cards">
-      <div class="card">
-        <h3>Basic</h3>
-        <p>For academic research and student projects.</p>
-        <p><strong>$29/month</strong></p>
-        <button class="btn">Select Plan</button>
-      </div>
-      <div class="card">
-        <h3>Professional</h3>
-        <p>Advanced features for pharmaceutical companies.</p>
-        <p><strong>$99/month</strong></p>
-        <button class="btn">Select Plan</button>
-      </div>
-      <div class="card">
-        <h3>Enterprise</h3>
-        <p>Custom solutions and dedicated support.</p>
-        <p><strong>Contact Us</strong></p>
-        <button class="btn">Contact Sales</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact">
-    <h2>Contact & Feedback</h2>
-    <form id="contactForm">
-      <div>
-        <label for="name">Your Name:</label>
-        <input type="text" id="name" placeholder="Enter your name..." />
-      </div>
-      <div>
-        <label for="email">Your Email:</label>
-        <input type="email" id="email" placeholder="Enter your email..." />
-      </div>
-      <div>
-        <label for="message">Message:</label>
-        <textarea id="message" rows="4" placeholder="Enter your message..."></textarea>
-      </div>
-      <button type="submit" class="btn">Send Message</button>
-    </form>
-  </section>
-
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 FisQ Drug Discovery Simulator. All rights reserved.</p>
-  </footer>
-
-  <!-- JavaScript -->
-  <script>
-    // Function to simulate drug discovery and render 3D model
-    function simulateDrug() {
-      // Get inputs
-      const molecule = document.getElementById('molecularStructure').value.trim();
-      const energyLevel = document.getElementById('energyLevel').value;
-      
-      // Setup the 3Dmol.js viewer
-      let element = document.getElementById("viewer");
-      element.innerHTML = ""; // Clear previous view
-      let config = { backgroundColor: "0xf4f6f8" };
-      let viewer = $3Dmol.createViewer("viewer", config);
-
-      /* 
-       * NOTE: 3Dmol.js can display structures from formats like PDB.
-       * To render a structure from a SMILES string, conversion to a 3D structure (e.g., PDB) is required.
-       * Here we use a placeholder PDB file ("1CRN") for demonstration purposes.
-       */
-      $3Dmol.download("pdb:1CRN", viewer, {}, function() {
-        viewer.setStyle({}, { stick: { colorscheme: 'cyanCarbon' } });
-        viewer.zoomTo();
-        viewer.render();
-      });
-
-      // Generate a placeholder AI description along with extra simulation results
-      generateAIDescription(molecule, energyLevel);
-    }
-    
-    // Function to generate a simulated AI analysis with additional energy results
-    function generateAIDescription(molecule, energyLevel) {
-      const analysisDiv = document.getElementById('aiAnalysis');
-      
-      // Dummy simulated energy values and additional results
-      let groundStateEnergy = (-120 - energyLevel/10).toFixed(2);
-      let excitedStateEnergy = (-90 - energyLevel/8).toFixed(2);
-      let bindingAffinity = (-5 - energyLevel/20).toFixed(2);
-      let quantumScore = (50 + energyLevel/2).toFixed(0);
-      
-      analysisDiv.innerHTML = `
-        <p><strong>AI Analysis:</strong> The molecule "${molecule}" appears to exhibit aromatic ring structures with potential binding sites for the target protein. Based on the simulation:</p>
-        <ul>
-          <li>Simulated Ground State Energy: <strong>${groundStateEnergy} a.u.</strong></li>
-          <li>Simulated Excited State Energy: <strong>${excitedStateEnergy} a.u.</strong></li>
-          <li>Predicted Binding Affinity: <strong>${bindingAffinity} kcal/mol</strong></li>
-          <li>Quantum Simulation Score: <strong>${quantumScore}%</strong></li>
-        </ul>
-      `;
-      
-      // Display simulation output
-      document.getElementById('simulationOutput').style.display = 'block';
-    }
-    
-    // Contact form submission handler
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      alert("Thank you for your message. We'll get back to you soon!");
-      this.reset();
-    });
-  </script>
-</body>
-</html>
+    #contact input
