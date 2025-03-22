@@ -12,21 +12,14 @@
   <script src="https://3Dmol.csb.pitt.edu/build/3Dmol-min.js"></script>
   <style>
     /* Global Styles */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Roboto', sans-serif;
       background: #f4f6f8;
       color: #333;
       line-height: 1.6;
     }
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
+    a { color: inherit; text-decoration: none; }
     /* Navigation */
     nav {
       background: linear-gradient(135deg, #6a11cb, #2575fc);
@@ -39,10 +32,7 @@
       justify-content: center;
       gap: 20px;
     }
-    nav ul li {
-      font-weight: bold;
-      color: #fff;
-    }
+    nav ul li { font-weight: bold; color: #fff; }
     /* Hero Section */
     header {
       background: linear-gradient(135deg, #6a11cb, #2575fc);
@@ -50,13 +40,8 @@
       padding: 100px 20px;
       text-align: center;
     }
-    header h1 {
-      font-size: 3em;
-      margin-bottom: 20px;
-    }
-    header p {
-      font-size: 1.2em;
-    }
+    header h1 { font-size: 3em; margin-bottom: 20px; }
+    header p { font-size: 1.2em; }
     header .cta {
       display: inline-block;
       margin-top: 20px;
@@ -67,9 +52,7 @@
       font-weight: bold;
       transition: background 0.3s;
     }
-    header .cta:hover {
-      background: #eaeaea;
-    }
+    header .cta:hover { background: #eaeaea; }
     /* Sections */
     section {
       padding: 60px 20px;
@@ -120,10 +103,7 @@
       flex-direction: column;
       gap: 15px;
     }
-    #demo label {
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
+    #demo label { font-weight: bold; margin-bottom: 5px; }
     #demo input[type="text"],
     #demo input[type="number"],
     #demo select,
@@ -133,9 +113,7 @@
       border-radius: 4px;
       width: 100%;
     }
-    #demo input[type="range"] {
-      width: 100%;
-    }
+    #demo input[type="range"] { width: 100%; }
     #demo .btn {
       background: #2575fc;
       color: white;
@@ -147,9 +125,7 @@
       align-self: center;
       width: 50%;
     }
-    #demo .btn:hover {
-      background: #1a5bb8;
-    }
+    #demo .btn:hover { background: #1a5bb8; }
     #viewer {
       width: 100%;
       height: 400px;
@@ -180,16 +156,9 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       text-align: center;
     }
-    #pricing .card h3 {
-      margin-bottom: 10px;
-      color: #2575fc;
-    }
-    #pricing .card p {
-      margin-bottom: 15px;
-    }
-    #pricing .card .btn {
-      width: 100%;
-    }
+    #pricing .card h3 { margin-bottom: 10px; color: #2575fc; }
+    #pricing .card p { margin-bottom: 15px; }
+    #pricing .card .btn { width: 100%; }
     /* Contact Section */
     #contact form {
       background: #fff;
@@ -221,9 +190,7 @@
       align-self: center;
       width: 50%;
     }
-    #contact .btn:hover {
-      background: #1a5bb8;
-    }
+    #contact .btn:hover { background: #1a5bb8; }
     /* Footer */
     footer {
       text-align: center;
@@ -233,12 +200,8 @@
     }
     /* Responsive Navigation */
     @media (max-width: 768px) {
-      nav ul {
-        flex-direction: column;
-      }
-      header h1 {
-        font-size: 2.5em;
-      }
+      nav ul { flex-direction: column; }
+      header h1 { font-size: 2.5em; }
     }
   </style>
 </head>
@@ -341,13 +304,16 @@
     </form>
 
     <!-- 3D Molecular Viewer -->
-    <div id="viewer"></div>
+    <div id="viewer">
+      <!-- If a proper 3D model cannot be generated from SMILES, a message is shown -->
+      <p style="text-align:center; padding-top: 180px;">3D model preview will appear here.</p>
+    </div>
 
     <!-- Simulation Output -->
     <div class="output" id="simulationOutput">
       <h2>Simulation Results</h2>
       <div id="aiAnalysis">
-        <!-- AI generated description will appear here -->
+        <!-- AI generated analysis and energy results will appear here -->
       </div>
     </div>
   </section>
@@ -407,41 +373,58 @@
     // Function to simulate drug discovery and render 3D model
     function simulateDrug() {
       // Get inputs
-      const molecule = document.getElementById('molecularStructure').value;
-      // You can extend this function to use inputs such as temperature, pH, etc.
+      const molecule = document.getElementById('molecularStructure').value.trim();
+      const energyLevel = document.getElementById('energyLevel').value;
       
       // Setup the 3Dmol.js viewer
       let element = document.getElementById("viewer");
       element.innerHTML = ""; // Clear previous view
       let config = { backgroundColor: "0xf4f6f8" };
       let viewer = $3Dmol.createViewer("viewer", config);
-      
-      // For demonstration, we load a sample PDB structure. In a real scenario, parse the molecular input.
+
+      /* 
+       * NOTE: 3Dmol.js can display structures from formats like PDB.
+       * To render a structure from a SMILES string, conversion to a 3D structure (e.g., PDB) is required.
+       * Here we use a placeholder PDB file ("1CRN") for demonstration purposes.
+       */
       $3Dmol.download("pdb:1CRN", viewer, {}, function() {
         viewer.setStyle({}, { stick: { colorscheme: 'cyanCarbon' } });
         viewer.zoomTo();
         viewer.render();
       });
-      
-      // Generate a placeholder AI description (you could integrate an API here)
-      generateAIDescription(molecule);
+
+      // Generate a placeholder AI description along with extra simulation results
+      generateAIDescription(molecule, energyLevel);
     }
     
-    // Function to generate a simulated AI analysis
-    function generateAIDescription(molecule) {
+    // Function to generate a simulated AI analysis with additional energy results
+    function generateAIDescription(molecule, energyLevel) {
       const analysisDiv = document.getElementById('aiAnalysis');
-      // A placeholder AI-generated analysis (this should be replaced with a real AI API call)
-      analysisDiv.innerHTML = `<p><strong>AI Analysis:</strong> The molecule "${molecule}" appears to exhibit aromatic ring structures with potential binding sites for EGFR kinase. Further simulations will refine its energy profile and binding affinity.</p>`;
+      
+      // Dummy simulated energy values and additional results
+      let groundStateEnergy = (-120 - energyLevel/10).toFixed(2);
+      let excitedStateEnergy = (-90 - energyLevel/8).toFixed(2);
+      let bindingAffinity = (-5 - energyLevel/20).toFixed(2);
+      let quantumScore = (50 + energyLevel/2).toFixed(0);
+      
+      analysisDiv.innerHTML = `
+        <p><strong>AI Analysis:</strong> The molecule "${molecule}" appears to exhibit aromatic ring structures with potential binding sites for the target protein. Based on the simulation:</p>
+        <ul>
+          <li>Simulated Ground State Energy: <strong>${groundStateEnergy} a.u.</strong></li>
+          <li>Simulated Excited State Energy: <strong>${excitedStateEnergy} a.u.</strong></li>
+          <li>Predicted Binding Affinity: <strong>${bindingAffinity} kcal/mol</strong></li>
+          <li>Quantum Simulation Score: <strong>${quantumScore}%</strong></li>
+        </ul>
+      `;
       
       // Display simulation output
       document.getElementById('simulationOutput').style.display = 'block';
     }
     
-    // Optionally, add event listener to the contact form submission
+    // Contact form submission handler
     document.getElementById('contactForm').addEventListener('submit', function(e) {
       e.preventDefault();
       alert("Thank you for your message. We'll get back to you soon!");
-      // Here you could integrate AJAX to submit the form data to a server
       this.reset();
     });
   </script>
