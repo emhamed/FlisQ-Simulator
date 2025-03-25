@@ -7,7 +7,8 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <!-- Importing Orbitron for a voltage-inspired look for the header title -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
   <!-- 3Dmol.js Library for 3D visualization -->
   <script src="https://3Dmol.csb.pitt.edu/build/3Dmol-min.js"></script>
   <style>
@@ -15,15 +16,14 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Roboto', sans-serif;
-      font-size: 18px; /* Increased font size */
-      background: #000; /* Changed background to black */
-      color: #fff; /* Change text color to white for contrast */
+      background: #fff; /* Keep overall background white */
+      color: #333;
       line-height: 1.6;
     }
     a { color: inherit; text-decoration: none; }
     /* Navigation */
     nav {
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      background: #000; /* Changed from blue gradient to black */
       padding: 10px 20px;
       text-align: center;
     }
@@ -36,13 +36,14 @@
     nav ul li { font-weight: bold; color: #fff; }
     /* Hero Section */
     header {
-      background: linear-gradient(135deg, #6a11cb, #2575fc);
+      background: #000; /* Changed from blue gradient to black */
       color: white;
       padding: 100px 20px;
       text-align: center;
     }
     header h1 { 
-      font-size: 3.5em; /* Increased header font size */
+      font-family: 'Orbitron', sans-serif; /* Voltage-inspired font for title */
+      font-size: 3.5em;
       margin-bottom: 20px; 
     }
     header p { font-size: 1.4em; }
@@ -50,7 +51,7 @@
       display: inline-block;
       margin-top: 20px;
       background: #fff;
-      color: #2575fc;
+      color: #000;
       padding: 12px 25px;
       border-radius: 25px;
       font-weight: bold;
@@ -67,7 +68,7 @@
       text-align: center;
       margin-bottom: 40px;
       color: #2575fc;
-      font-size: 2em; /* Increased section header size */
+      font-size: 2em;
     }
     /* About Section */
     #about p {
@@ -90,18 +91,18 @@
       justify-content: center;
     }
     #features .feature {
-      background: #111; /* Slightly lighter black for cards */
+      background: #fff;
       padding: 20px;
       border-radius: 8px;
       flex: 1 1 300px;
-      box-shadow: 0 2px 8px rgba(255,255,255,0.1);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     /* Demo Section */
     #demo form {
-      background: #111;
+      background: #fff;
       padding: 30px;
       border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       max-width: 800px;
       margin: auto;
       display: flex;
@@ -138,9 +139,9 @@
       margin-top: 20px;
       border: 1px solid #ccd4db;
       border-radius: 4px;
-      position: relative; /* Ensure it stays in its container */
+      position: relative;
       overflow: hidden;
-      background: #000; /* Ensure viewer background is black */
+      background: #fff;
     }
     #viewer p {
       position: absolute;
@@ -154,7 +155,7 @@
       margin: 0;
     }
     #simulationOutput {
-      background: #222;
+      background: #eef2f7;
       border: 1px solid #ccd4db;
       border-radius: 4px;
       padding: 15px;
@@ -169,11 +170,11 @@
       justify-content: center;
     }
     #pricing .card {
-      background: #111;
+      background: #fff;
       padding: 20px;
       border-radius: 8px;
       flex: 1 1 250px;
-      box-shadow: 0 2px 8px rgba(255,255,255,0.1);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       text-align: center;
     }
     #pricing .card h3 { margin-bottom: 10px; color: #2575fc; }
@@ -181,10 +182,10 @@
     #pricing .card .btn { width: 100%; }
     /* Contact Section */
     #contact form {
-      background: #111;
+      background: #fff;
       padding: 30px;
       border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
       max-width: 600px;
       margin: auto;
       display: flex;
@@ -398,7 +399,7 @@
       // Setup the 3Dmol.js viewer using the 'viewer' div container
       let viewerElement = document.getElementById("viewer");
       viewerElement.innerHTML = ""; // Clear previous content
-      let config = { backgroundColor: "0x000000" }; // Set viewer background to black
+      let config = { backgroundColor: "0xffffff" }; // Set viewer background to white
       let viewer = $3Dmol.createViewer("viewer", config);
 
       /* 
