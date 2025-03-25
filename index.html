@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FlasQ Drug Discovery Simulator</title>
+  <title>FLASQ TECHNOLOGY</title>
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,8 +15,9 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: 'Roboto', sans-serif;
-      background: #f4f6f8;
-      color: #333;
+      font-size: 18px; /* Increased font size */
+      background: #000; /* Changed background to black */
+      color: #fff; /* Change text color to white for contrast */
       line-height: 1.6;
     }
     a { color: inherit; text-decoration: none; }
@@ -40,8 +41,11 @@
       padding: 100px 20px;
       text-align: center;
     }
-    header h1 { font-size: 3em; margin-bottom: 20px; }
-    header p { font-size: 1.2em; }
+    header h1 { 
+      font-size: 3.5em; /* Increased header font size */
+      margin-bottom: 20px; 
+    }
+    header p { font-size: 1.4em; }
     header .cta {
       display: inline-block;
       margin-top: 20px;
@@ -63,6 +67,7 @@
       text-align: center;
       margin-bottom: 40px;
       color: #2575fc;
+      font-size: 2em; /* Increased section header size */
     }
     /* About Section */
     #about p {
@@ -85,18 +90,18 @@
       justify-content: center;
     }
     #features .feature {
-      background: #fff;
+      background: #111; /* Slightly lighter black for cards */
       padding: 20px;
       border-radius: 8px;
       flex: 1 1 300px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 8px rgba(255,255,255,0.1);
     }
     /* Demo Section */
     #demo form {
-      background: #fff;
+      background: #111;
       padding: 30px;
       border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
       max-width: 800px;
       margin: auto;
       display: flex;
@@ -135,6 +140,7 @@
       border-radius: 4px;
       position: relative; /* Ensure it stays in its container */
       overflow: hidden;
+      background: #000; /* Ensure viewer background is black */
     }
     #viewer p {
       position: absolute;
@@ -148,7 +154,7 @@
       margin: 0;
     }
     #simulationOutput {
-      background: #eef2f7;
+      background: #222;
       border: 1px solid #ccd4db;
       border-radius: 4px;
       padding: 15px;
@@ -163,11 +169,11 @@
       justify-content: center;
     }
     #pricing .card {
-      background: #fff;
+      background: #111;
       padding: 20px;
       border-radius: 8px;
       flex: 1 1 250px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 8px rgba(255,255,255,0.1);
       text-align: center;
     }
     #pricing .card h3 { margin-bottom: 10px; color: #2575fc; }
@@ -175,10 +181,10 @@
     #pricing .card .btn { width: 100%; }
     /* Contact Section */
     #contact form {
-      background: #fff;
+      background: #111;
       padding: 30px;
       border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
       max-width: 600px;
       margin: auto;
       display: flex;
@@ -235,7 +241,7 @@
 
   <!-- Hero Section -->
   <header id="home">
-    <h1>FlasQ Drug Discovery Simulator</h1>
+    <h1>FLASQ TECHNOLOGY</h1>
     <p>Quantum-Powered AI for Next-Generation Drug Discovery</p>
     <a class="cta" href="#demo">See the Demo</a>
   </header>
@@ -378,7 +384,7 @@
 
   <!-- Footer -->
   <footer>
-    <p>&copy; 2025 FlasQ Drug Discovery Simulator. All rights reserved.</p>
+    <p>&copy; 2025 FLASQ TECHNOLOGY. All rights reserved.</p>
   </footer>
 
   <!-- JavaScript -->
@@ -392,7 +398,7 @@
       // Setup the 3Dmol.js viewer using the 'viewer' div container
       let viewerElement = document.getElementById("viewer");
       viewerElement.innerHTML = ""; // Clear previous content
-      let config = { backgroundColor: "0xf4f6f8" };
+      let config = { backgroundColor: "0x000000" }; // Set viewer background to black
       let viewer = $3Dmol.createViewer("viewer", config);
 
       /* 
